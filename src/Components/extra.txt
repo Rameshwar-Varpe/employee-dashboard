@@ -1,0 +1,441 @@
+// import { useState } from "react";
+// import Appbar from "./Appbar.jsx";
+// import EmployeeList from './EmployeeList.jsx';
+// import ShowEmployee from './ShowForm.jsx';
+// import AddEmployee from './AddEmployee.jsx'
+// // import SearchBar from "./SearchBar.jsx";
+// // import Sort from './Sort.jsx'
+
+// function Dashboard() {
+//     const initialEmployees = [
+//         { ID: 1, name: "Rameshwar Varpe", designation: "Quality Analyst", department: "Quality Assurance", salary: 55000 },
+//         { ID: 2, name: "Pratik Pawase", designation: "Tester", department: "IT Department", salary: 30000 },
+//         { ID: 3, name: "Shubham Thorat", designation: "Sales", department: "Sales", salary: 25000 },
+//         { ID: 4, name: "Akash Kharat", designation: "Financial Manager", department: "Finance", salary: 40000 },
+//         { ID: 5, name: "Sagar Varpe", designation: "Sales", department: "Marketing", salary: 15000 },
+//         { ID: 6, name: "Pratik Pawase", designation: "Developer", department: "IT Department", salary: 45000 },
+//         { ID: 7, name: "Sachin Thorat", designation: "Sales", department: "Sales", salary: 15000 },
+//         { ID: 8, name: "Gaurav Pansare", designation: "Financial Manager", department: "Finance", salary: 44000 },
+//     ];
+
+//     const [selectedEmployee, setSelectedEmployee] = useState(null);
+//     const [showForm, setShowForm] = useState(false);
+//     const [employees, setEmployees] = useState(initialEmployees);
+//     const [showAddEmployeeForm, setShowAddEmployeeForm] = useState(false);
+
+//     const updateEmployee = (updatedEmployee) => {
+//         const index = employees.findIndex(employee => employee.ID === updatedEmployee.ID);
+
+//         if (index !== -1) {
+//             const updatedEmployees = [...employees];
+//             updatedEmployees[index] = updatedEmployee;
+//             setEmployees(updatedEmployees);
+//         }
+//     }
+
+//     // const handleAddEmployeeClick = () => {
+//     //     setShowAddEmployeeForm(true);
+//     //     setShowForm(false);
+//     // }
+
+//     const setNewEmployee = (employee) => {
+//         employee ?
+//             setEmployees((prevEmployees) => [...prevEmployees, employee])
+//             :
+//             <></>
+//     }
+
+//     const setSearchedEmployee = (searchTerm) => {
+//         const searchResult = searchTerm.length > 0
+//             ? employees.filter((employee) => employee.name.toLowerCase().includes(searchTerm.toLowerCase()))
+//             : employees;
+
+//         setEmployees(searchResult);
+//     }
+
+//     return (
+//         <>
+//             <Appbar 
+//             setShowForm={setShowForm}
+//             setShowAddEmployeeForm={setShowAddEmployeeForm}
+//             employees={employees}
+//             setEmployees={setEmployees}
+//             setSearchedEmployee={setSearchedEmployee}
+//             />
+//             <EmployeeList employees={employees} setSelectedEmployee={setSelectedEmployee} setShowForm={setShowForm} />
+//             {
+//                 showForm ?
+//                     (
+//                         () => setShowAddEmployeeForm(false),
+//                         <ShowEmployee
+//                             selectedEmployee={selectedEmployee}
+//                             setSelectedEmployee={setSelectedEmployee}
+//                             updateEmployee={updateEmployee}
+//                             showForm={showForm}
+//                             setShowForm={setShowForm}
+//                         />
+//                     )
+//                     :
+//                     <></>
+//             }
+
+//             {/* <Button
+//                 // variant="contained"
+//                 sx={{
+//                     backgroundColor: 'white',
+//                     color: "black",
+//                     height: "30px",
+//                     margin: "29px 0 0 8vw",
+//                     position: "absolute",
+//                     top: 0,
+//                     left: 0
+//                 }}
+//                 onClick={handleAddEmployeeClick}
+//             >
+//                 Add Employee
+//             </Button> */}
+
+
+//             {
+//                 showAddEmployeeForm ?
+//                     !showForm ?
+//                         (
+//                             <AddEmployee
+//                                 employees={employees}
+//                                 setShowForm={setShowForm}
+//                                 setNewEmployee={setNewEmployee}
+//                                 setShowAddEmployeeForm={setShowAddEmployeeForm}
+//                             />
+//                         )
+//                         :
+//                         <></>
+//                     :
+//                     <></>
+//             }
+
+//             {/* <SearchBar employees={employees} setEmployees={setEmployees} />
+//             <Sort employees={employees} setEmployees={setEmployees} /> */}
+
+//         </>
+//     )
+// }
+
+// export default Dashboard;
+
+
+
+// import { Button, Container, Stack, Table, TableCell, TableContainer, TableRow, TextField } from "@mui/material";
+// import { useState } from "react";
+
+// function ShowForm(props) {
+//     const [enableField, setEnableField] = useState(true);
+
+//     // const handleEdit = () => {
+//     //     console.log("before******",enableField);
+//     //     setEnableField((prevEnable) => !prevEnable);
+//     //     console.log("after******",enableField);
+//     // }
+
+//     const handleEdit = () => {
+//         console.log("before******", enableField);
+//         setEnableField((prevEnable) => {
+//             console.log("after******", !prevEnable);
+//             return !prevEnable;
+//         });
+//     }
+
+//     const handleSave = () => {
+//         console.log("before******",enableField);
+//         setEnableField((prevEnable) => {
+//             console.log("after******", !prevEnable);
+//             return !prevEnable;
+//         });
+//         console.log("before******",enableField);
+//         if (props.selectedEmployee) {
+//             props.updateEmployee(props.selectedEmployee);
+//         }
+//     }
+
+//     const handleChange = (fieldName, value) => {
+//         props.setSelectedEmployee(preState => ({
+//             ...preState, [fieldName]: value
+//         }))
+//     }
+
+//     return (
+//         <>
+//             {
+//                 props.showForm ?
+//                     <Container>
+//                         <TableContainer >
+//                             <Table>
+//                                 <TableRow>
+//                                     <TableCell sx={{ color: "blue" }}>ID: </TableCell>
+//                                     <TableCell>
+//                                         <TextField variant="standard" value={props.selectedEmployee.ID}></TextField>
+//                                     </TableCell>
+//                                 </TableRow>
+//                                 <TableRow>
+//                                     <TableCell sx={{ color: "blue" }}>Name: </TableCell>
+//                                     <TableCell>
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.name}
+//                                             onChange={(e) => handleChange("name", e.target.value)}
+//                                             readOnly={!enableField}></TextField>
+//                                     </TableCell>
+//                                 </TableRow>
+//                                 <TableRow>
+//                                     <TableCell sx={{ color: "blue" }}>Designation: </TableCell>
+//                                     <TableCell>
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.designation}
+//                                             onChange={(e) => handleChange("designation", e.target.value)}
+//                                             readOnly={!enableField}></TextField>
+//                                     </TableCell>
+//                                 </TableRow>
+//                                 <TableRow>
+//                                     <TableCell sx={{ color: "blue" }}>Department: </TableCell>
+//                                     <TableCell>
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.department}
+//                                             onChange={(e) => handleChange("department", e.target.value)}
+//                                             readOnly={!enableField}></TextField>
+//                                     </TableCell>
+//                                 </TableRow>
+//                                 <TableRow>
+//                                     <TableCell sx={{ color: "blue" }}>Salary: </TableCell>
+//                                     <TableCell>
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.salary}
+//                                             onChange={(e) => handleChange("salary", e.target.value)}
+//                                             readOnly={!enableField}></TextField>
+//                                     </TableCell>
+//                                 </TableRow>
+//                             </Table>
+//                         </TableContainer>
+
+//                         <Stack
+//                             direction={"row"}
+//                             justifyContent={"space-between"}
+//                             margin={"5px 15px 5px 15px"}
+//                         >
+//                             {
+//                                 enableField ?
+//                                     (
+//                                         <>
+//                                             <Button
+//                                                 variant="contained"
+//                                                 onClick={handleSave}
+//                                                 size="small"
+//                                             >
+//                                                 Save
+//                                             </Button>
+
+//                                             <Button
+//                                                 variant="contained"
+//                                                 onClick={() => props.setShowForm(false)}
+//                                                 size="small"
+//                                             >Close</Button>
+//                                         </>
+//                                     )
+//                                     :
+//                                     (
+//                                         <>
+//                                             <Button
+//                                                 variant="contained"
+//                                                 onClick={handleEdit}
+//                                                 size="small"
+//                                             >
+//                                                 edit
+//                                             </Button>
+
+//                                             <Button
+//                                                 variant="contained"
+//                                                 onClick={() => props.setShowForm(false)}
+//                                                 size="small"
+//                                             >Close</Button>
+//                                         </>
+//                                     )
+//                             }
+//                         </Stack>
+//                     {/* </Paper> */}
+//                     </Container>
+//                     :
+//                     <></>
+//             }
+//         </>
+//     )
+// }
+
+// export default ShowForm;
+
+
+// import { Button, Container, Stack, Table, TableCell, TableContainer, TableRow, TextField } from "@mui/material";
+// import { useState, useEffect } from "react";
+
+// function ShowForm(props) {
+//     const [editMode, setEditMode] = useState(false);
+//     const [originalData, setOriginalData] = useState({});
+
+//     useEffect(() => {
+//         // Update the original data when entering edit mode
+//         if (props.selectedEmployee && editMode) {
+//             setOriginalData({ ...props.selectedEmployee });
+//         }
+//     }, [editMode, props.selectedEmployee]);
+
+//     const handleEdit = () => {
+//         setOriginalData({ ...props.selectedEmployee });
+//         setEditMode(true);
+//         }
+
+//     const handleSave = () => {
+//         setEditMode(false);
+//         if (props.selectedEmployee) {
+//             props.updateEmployee(props.selectedEmployee);
+//         }
+//     }
+
+//     const handleChange = (fieldName, value) => {
+//         props.setSelectedEmployee(prevState => ({
+//             ...prevState,
+//             [fieldName]: value
+//         }));
+//     }
+
+//     const handleClose = () => {
+//         setEditMode(false)
+//         props.setShowForm(false)
+//     }
+
+//     const handleCancel = () => {
+//         setEditMode(false);
+//         props.setSelectedEmployee(originalData);
+//     }
+
+//     return (
+//         <>
+//             {props.showForm ? (
+//                 <Container>
+//                     <TableContainer>
+//                          <Table>
+//                             <TableRow>
+//                                <TableCell sx={{ color: "blue" }}>ID: </TableCell>
+//                                  <TableCell>
+//                                      <TextField variant="standard" value={props.selectedEmployee.ID} readOnly />
+//                                 </TableCell>
+//                             </TableRow>
+//                             <TableRow>
+//                                <TableCell sx={{ color: "blue" }}>Name: </TableCell>
+//                                  <TableCell>
+//                                      {editMode ? (
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.name}
+//                                             onChange={(e) => handleChange("name", e.target.value)}
+//                                         />
+//                                     ) : (
+//                                         <TextField variant="standard" value={props.selectedEmployee.name} readOnly />
+//                                     )}
+//                                 </TableCell>
+//                             </TableRow>
+//                             <TableRow>
+//                                 <TableCell sx={{ color: "blue" }}>Designation: </TableCell>
+//                                 <TableCell>
+//                                     {editMode ? (
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.designation}
+//                                             onChange={(e) => handleChange("designation", e.target.value)}
+//                                         />
+//                                     ) : (
+//                                         <TextField variant="standard" value={props.selectedEmployee.designation} readOnly />
+//                                     )}
+//                                 </TableCell>
+//                             </TableRow>
+//                             <TableRow>
+//                                 <TableCell sx={{ color: "blue" }}>department: </TableCell>
+//                                 <TableCell>
+//                                     {editMode ? (
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.department}
+//                                             onChange={(e) => handleChange("department", e.target.value)}
+//                                         />
+//                                     ) : (
+//                                         <TextField variant="standard" value={props.selectedEmployee.department} readOnly />
+//                                     )}
+//                                 </TableCell>
+//                             </TableRow>
+//                             <TableRow>
+//                                 <TableCell sx={{ color: "blue" }}>Salary: </TableCell>
+//                                 <TableCell>
+//                                     {editMode ? (
+//                                         <TextField
+//                                             variant="standard"
+//                                             value={props.selectedEmployee.salary}
+//                                             onChange={(e) => handleChange("salary", e.target.value)}
+//                                         />
+//                                     ) : (
+//                                         <TextField variant="standard" value={props.selectedEmployee.salary} readOnly />
+//                                     )}
+//                                 </TableCell>
+//                             </TableRow>
+//                         </Table>
+//                     </TableContainer>
+//                     <Stack
+//                         direction={"row"}
+//                         justifyContent={"space-between"}
+//                         margin={"2% 4% 2% 4%"}
+//                     >
+//                         {editMode ? (
+//                             <>
+//                                 <Button
+//                                     variant="contained"
+//                                     onClick={handleSave}
+//                                     size="small"
+//                                 >
+//                                     Save
+//                                 </Button>
+
+//                                 <Button
+//                                     variant="contained"
+//                                     onClick={handleCancel}
+//                                     size="small"
+//                                 >
+//                                     Cancel
+//                                 </Button>
+//                             </>
+//                         ) : (
+//                             <>
+//                                 <Button
+//                                     variant="contained"
+//                                     onClick={handleEdit}
+//                                     size="small"
+//                                 >
+//                                     Edit
+//                                 </Button>
+
+//                                 <Button
+//                                     variant="contained"
+//                                     onClick={handleClose}
+//                                     size="small"
+//                                 >
+//                                     Close
+//                                 </Button>
+//                             </>
+//                         )}
+//                     </Stack>
+//                 </Container>
+//             ) : (
+//                 <></>
+//             )}
+//         </>
+//     );
+// }
+
+// export default ShowForm;
